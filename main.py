@@ -1,29 +1,45 @@
-# main.py
-from __future__ import annotations
-import sys
-import os
-from pathlib import Path
-from PySide6 import QtWidgets, QtGui
-from ui_main import MainAppWindow
+"""
+RecursiveLearn - Main Entry Point
 
-def resource_path(relative_path: str) -> Path:
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-    return Path(os.path.join(base_path, relative_path))
+An offline Windows application for solving and visualizing recursive sequences.
+Designed for Discrete Mathematics students.
+"""
+
+import sys
+from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
+
+from src.ui.main_window import MainWindow
+
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)
-
-    qss_path = resource_path("style.qss")
-    icon_path = resource_path("logo.ico")
-
-    win = MainAppWindow(qss_path=qss_path)
-    win.setWindowIcon(QtGui.QIcon(str(icon_path)))
-    win.show()
-
+    """Main application entry point."""
+    
+    # Create application
+    app = QApplication(sys.argv)
+    
+    # Set application metadata
+    app.setApplicationName("RecursiveLearn")
+    app.setApplicationDisplayName("RecursiveLearn - Master Recursive Sequences")
+    app.setApplicationVersion("1.0.0")
+    app.setOrganizationName("RecursiveLearn")
+    app.setOrganizationDomain("recursivelearn.edu")
+    
+    # Set default font
+    default_font = QFont("Segoe UI", 11)
+    app.setFont(default_font)
+    
+    # Enable high DPI scaling
+    app.setAttribute(Qt.AA_UseHighDpiPixmaps)
+    
+    # Create and show main window
+    window = MainWindow()
+    window.show()
+    
+    # Run application
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()
