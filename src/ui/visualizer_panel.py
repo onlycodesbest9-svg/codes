@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
     QLineEdit, QGroupBox, QSpinBox, QCheckBox, QMessageBox
 )
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QCursor
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -41,8 +42,11 @@ class VisualizerPanel(QWidget):
         rel_layout = QHBoxLayout()
         rel_label = QLabel("Recurrence Relation:")
         rel_label.setMinimumWidth(150)
+        rel_label.setStyleSheet("font-weight: 700; font-size: 13px; color: #212121;")
         self.relation_input = QLineEdit()
         self.relation_input.setPlaceholderText("e.g., a_n = a_(n-1) + 5")
+        self.relation_input.setMinimumHeight(40)
+        self.relation_input.setStyleSheet("font-size: 14px; padding: 8px;")
         rel_layout.addWidget(rel_label)
         rel_layout.addWidget(self.relation_input)
         input_layout.addLayout(rel_layout)
@@ -51,8 +55,11 @@ class VisualizerPanel(QWidget):
         init_layout = QHBoxLayout()
         init_label = QLabel("Initial Conditions:")
         init_label.setMinimumWidth(150)
+        init_label.setStyleSheet("font-weight: 700; font-size: 13px; color: #212121;")
         self.initial_input = QLineEdit()
         self.initial_input.setPlaceholderText("e.g., 0:5, 1:10")
+        self.initial_input.setMinimumHeight(40)
+        self.initial_input.setStyleSheet("font-size: 14px; padding: 8px;")
         init_layout.addWidget(init_label)
         init_layout.addWidget(self.initial_input)
         input_layout.addLayout(init_layout)
@@ -61,10 +68,13 @@ class VisualizerPanel(QWidget):
         terms_layout = QHBoxLayout()
         terms_label = QLabel("Number of Terms:")
         terms_label.setMinimumWidth(150)
+        terms_label.setStyleSheet("font-weight: 700; font-size: 13px; color: #212121;")
         self.terms_spin = QSpinBox()
         self.terms_spin.setMinimum(5)
         self.terms_spin.setMaximum(100)
         self.terms_spin.setValue(20)
+        self.terms_spin.setMinimumHeight(40)
+        self.terms_spin.setStyleSheet("font-size: 14px; padding: 5px;")
         terms_layout.addWidget(terms_label)
         terms_layout.addWidget(self.terms_spin)
         terms_layout.addStretch()
@@ -129,7 +139,12 @@ class VisualizerPanel(QWidget):
         for name, relation, initial in examples:
             btn = QPushButton(name)
             btn.setObjectName("secondaryButton")
-            btn.clicked.connect(lambda checked, r=relation, i=initial: self.load_example(r, i))
+            btn.setMinimumHeight(38)
+            btn.setCursor(QCursor(Qt.PointingHandCursor))
+            # Use default arguments to capture values correctly
+            def make_example_handler(rel, init):
+                return lambda: self.load_example(rel, init)
+            btn.clicked.connect(make_example_handler(relation, initial))
             example_layout.addWidget(btn)
         
         example_layout.addStretch()

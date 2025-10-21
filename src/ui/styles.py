@@ -7,23 +7,25 @@ QMainWindow {
 }
 
 QWidget {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 12px;
-    color: #333333;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-size: 13px;
+    color: #212121;
 }
 
 QPushButton {
     background-color: #2196F3;
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 500;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 40px;
 }
 
 QPushButton:hover {
     background-color: #1976D2;
+    cursor: pointer;
 }
 
 QPushButton:pressed {
@@ -37,40 +39,47 @@ QPushButton:disabled {
 
 QPushButton#secondaryButton {
     background-color: #EEEEEE;
-    color: #333333;
+    color: #212121;
+    border: 2px solid #BDBDBD;
 }
 
 QPushButton#secondaryButton:hover {
     background-color: #E0E0E0;
+    border: 2px solid #9E9E9E;
 }
 
 QLineEdit, QTextEdit, QPlainTextEdit {
     background-color: white;
-    border: 2px solid #E0E0E0;
+    border: 2px solid #BDBDBD;
     border-radius: 6px;
-    padding: 8px;
-    font-size: 13px;
+    padding: 10px;
+    font-size: 14px;
+    color: #212121;
 }
 
 QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus {
     border: 2px solid #2196F3;
+    outline: none;
 }
 
 QLabel {
-    color: #333333;
+    color: #212121;
+    font-size: 13px;
 }
 
 QLabel#titleLabel {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
-    color: #1976D2;
+    color: #1565C0;
+    padding: 10px 0px;
 }
 
 QLabel#sectionTitle {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    color: #424242;
-    margin-top: 10px;
+    color: #212121;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 QGroupBox {
@@ -383,6 +392,14 @@ QTextBrowser {
     border-radius: 6px;
     padding: 10px;
     color: #E0E0E0;
+}
+
+QMessageBox {
+    font-size: 13px;
+}
+
+QMessageBox QPushButton {
+    min-width: 80px;
 }
 """
 

@@ -16,11 +16,12 @@ class SettingsPanel(QWidget):
     
     theme_changed = Signal(str)
     
-    def __init__(self, settings: Settings, file_manager: FileManager):
+    def __init__(self, settings: Settings, file_manager: FileManager, user_mode: str = 'student'):
         super().__init__()
         
         self.settings = settings
         self.file_manager = file_manager
+        self.user_mode = user_mode
         
         self.setup_ui()
         
@@ -93,27 +94,31 @@ class SettingsPanel(QWidget):
         
         layout.addWidget(solver_group)
         
-        # Instructor mode group
-        instructor_group = QGroupBox("Instructor Mode")
-        instructor_layout = QVBoxLayout(instructor_group)
-        
-        pin_layout = QHBoxLayout()
-        pin_label = QLabel("PIN Code:")
-        pin_label.setMinimumWidth(150)
-        self.pin_input = QLineEdit()
-        self.pin_input.setEchoMode(QLineEdit.Password)
-        self.pin_input.setText(self.settings.instructor_pin)
-        self.pin_input.setMaximumWidth(200)
-        pin_layout.addWidget(pin_label)
-        pin_layout.addWidget(self.pin_input)
-        pin_layout.addStretch()
-        instructor_layout.addLayout(pin_layout)
-        
-        access_btn = QPushButton("🔓 Access Instructor Mode")
-        access_btn.clicked.connect(self.access_instructor_mode)
-        instructor_layout.addWidget(access_btn)
-        
-        layout.addWidget(instructor_group)
+        # Instructor mode group (only show if in instructor mode)
+        if self.user_mode == 'instructor':
+            instructor_group = QGroupBox("Instructor Settings")
+            instructor_layout = QVBoxLayout(instructor_group)
+            
+            pin_layout = QHBoxLayout()
+            pin_label = QLabel("Change PIN Code:")
+            pin_label.setMinimumWidth(150)
+            pin_label.setStyleSheet("font-size: 13px; font-weight: 600;")
+            self.pin_input = QLineEdit()
+            self.pin_input.setEchoMode(QLineEdit.Password)
+            self.pin_input.setText(self.settings.instructor_pin)
+            self.pin_input.setMaximumWidth(200)
+            self.pin_input.setPlaceholderText("Enter new PIN")
+            pin_layout.addWidget(pin_label)
+            pin_layout.addWidget(self.pin_input)
+            pin_layout.addStretch()
+            instructor_layout.addLayout(pin_layout)
+            
+            info_label = QLabel("You are currently in Instructor Mode with full access to all features.")
+            info_label.setWordWrap(True)
+            info_label.setStyleSheet("color: #FF9800; font-size: 12px; margin: 10px 0px;")
+            instructor_layout.addWidget(info_label)
+            
+            layout.addWidget(instructor_group)
         
         # Data management group
         data_group = QGroupBox("Data Management")
@@ -177,28 +182,6 @@ class SettingsPanel(QWidget):
         
         QMessageBox.information(self, "Saved", "Settings saved successfully!")
         
-    def access_instructor_mode(self):
-        """Access instructor mode with PIN."""
-        pin, ok = QInputDialog.getText(
-            self,
-            "Instructor Mode",
-            "Enter PIN:",
-            QLineEdit.Password
-        )
-        
-        if ok:
-            if pin == self.settings.instructor_pin:
-                QMessageBox.information(
-                    self,
-                    "Access Granted",
-                    "Welcome to Instructor Mode!\n\n"
-                    "You can now:\n"
-                    "• Add custom exercises\n"
-                    "• View student progress\n"
-                    "• Manage lesson content"
-                )
-            else:
-                QMessageBox.warning(self, "Access Denied", "Incorrect PIN.")
                 
     def open_data_folder(self):
         """Open the data folder in file explorer."""

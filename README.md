@@ -49,12 +49,30 @@ pip install -r requirements.txt
 # or: python3 main.py
 ```
 
+### First Launch - Choose Your Mode
+
+**On startup, you'll be prompted to select:**
+
+1. **🎓 Student Mode** (No PIN required)
+   - Learn through interactive lessons
+   - Solve practice exercises
+   - Track your progress with scores and badges
+   - Access all learning features
+
+2. **👨‍🏫 Instructor Mode** (PIN required - default: `1234`)
+   - All student features PLUS:
+   - Create custom exercises
+   - Manage student progress
+   - View analytics
+   - Customize content
+
 ### First Time Users
 
-1. Start with **📘 Lessons** → Complete Lesson 1
-2. Try **🧮 Solver** → Click "Fibonacci" example
-3. Use **📊 Visualizer** → Plot a sequence
-4. Practice with **🧠 Practice** → Solve beginner exercises
+1. **Choose Student Mode** to start learning
+2. Start with **📘 Lessons** → Complete Lesson 1
+3. Try **🧮 Solver** → Click "Fibonacci" example
+4. Use **📊 Visualizer** → Plot a sequence
+5. Practice with **🧠 Practice** → Solve beginner exercises
 
 📖 **See [QUICKSTART.md](QUICKSTART.md) for a 3-minute guide**
 

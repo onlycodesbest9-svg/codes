@@ -6,6 +6,7 @@ from PySide6.QtWidgets import (
     QFileDialog
 )
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QCursor
 
 from ..core.recurrence_solver import solve_recurrence
 from ..utils.export import PDFExporter, DOCXExporter
@@ -40,30 +41,42 @@ class SolverPanel(QWidget):
         
         # Relation input
         rel_label = QLabel("Recurrence Relation:")
-        rel_label.setStyleSheet("font-weight: 600; margin-top: 5px;")
+        rel_label.setStyleSheet("font-weight: 700; margin-top: 5px; font-size: 14px; color: #212121;")
         input_layout.addWidget(rel_label)
         
         hint_label = QLabel("Example: a_n = a_(n-1) + 5  or  a_n = 3*a_(n-1) - 2*a_(n-2)")
-        hint_label.setStyleSheet("font-size: 11px; color: #757575; margin-bottom: 5px;")
+        hint_label.setStyleSheet("font-size: 12px; color: #616161; margin-bottom: 8px;")
         input_layout.addWidget(hint_label)
         
         self.relation_input = QLineEdit()
         self.relation_input.setPlaceholderText("Enter recurrence relation...")
-        self.relation_input.setMinimumHeight(40)
+        self.relation_input.setMinimumHeight(45)
+        self.relation_input.setStyleSheet("""
+            QLineEdit {
+                font-size: 14px;
+                padding: 10px;
+            }
+        """)
         input_layout.addWidget(self.relation_input)
         
         # Initial conditions
         init_label = QLabel("Initial Conditions:")
-        init_label.setStyleSheet("font-weight: 600; margin-top: 15px;")
+        init_label.setStyleSheet("font-weight: 700; margin-top: 15px; font-size: 14px; color: #212121;")
         input_layout.addWidget(init_label)
         
         init_hint = QLabel("Format: a_0 = 5, a_1 = 10  or  0:5, 1:10")
-        init_hint.setStyleSheet("font-size: 11px; color: #757575; margin-bottom: 5px;")
+        init_hint.setStyleSheet("font-size: 12px; color: #616161; margin-bottom: 8px;")
         input_layout.addWidget(init_hint)
         
         self.initial_input = QLineEdit()
         self.initial_input.setPlaceholderText("Enter initial conditions...")
-        self.initial_input.setMinimumHeight(40)
+        self.initial_input.setMinimumHeight(45)
+        self.initial_input.setStyleSheet("""
+            QLineEdit {
+                font-size: 14px;
+                padding: 10px;
+            }
+        """)
         input_layout.addWidget(self.initial_input)
         
         layout.addWidget(input_group)
@@ -92,6 +105,15 @@ class SolverPanel(QWidget):
         self.solution_display = QTextEdit()
         self.solution_display.setReadOnly(True)
         self.solution_display.setMinimumHeight(300)
+        self.solution_display.setStyleSheet("""
+            QTextEdit {
+                font-family: 'Consolas', 'Courier New', monospace;
+                font-size: 13px;
+                line-height: 1.6;
+                color: #212121;
+                padding: 15px;
+            }
+        """)
         solution_layout.addWidget(self.solution_display)
         
         layout.addWidget(solution_group)
@@ -135,7 +157,12 @@ class SolverPanel(QWidget):
         for name, relation, initial in examples:
             btn = QPushButton(name)
             btn.setObjectName("secondaryButton")
-            btn.clicked.connect(lambda checked, r=relation, i=initial: self.load_example(r, i))
+            btn.setMinimumHeight(38)
+            btn.setCursor(QCursor(Qt.PointingHandCursor))
+            # Use default arguments to capture values correctly
+            def make_example_handler(rel, init):
+                return lambda: self.load_example(rel, init)
+            btn.clicked.connect(make_example_handler(relation, initial))
             example_layout.addWidget(btn)
         
         example_layout.addStretch()

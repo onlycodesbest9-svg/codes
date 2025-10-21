@@ -114,18 +114,61 @@ class LessonPanel(QWidget):
         
         section = self.current_lesson.sections[self.current_section]
         
-        # Build HTML content
+        # Build HTML content with improved readability
         html = f"""
         <html>
         <head>
             <style>
-                body {{ font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; }}
-                h3 {{ color: #2196F3; margin-top: 20px; }}
-                h4 {{ color: #424242; margin-top: 15px; }}
-                ul, ol {{ margin-left: 20px; }}
-                li {{ margin: 8px 0; }}
-                p {{ margin: 10px 0; }}
-                b {{ color: #1976D2; }}
+                body {{ 
+                    font-family: 'Segoe UI', Arial, sans-serif; 
+                    line-height: 1.8; 
+                    font-size: 14px;
+                    color: #212121;
+                    padding: 20px;
+                }}
+                h2 {{
+                    color: #1565C0;
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                    border-bottom: 3px solid #2196F3;
+                    padding-bottom: 10px;
+                }}
+                h3 {{ 
+                    color: #1976D2; 
+                    margin-top: 25px; 
+                    font-size: 20px;
+                    font-weight: 600;
+                }}
+                h4 {{ 
+                    color: #424242; 
+                    margin-top: 18px; 
+                    font-size: 16px;
+                    font-weight: 600;
+                }}
+                ul, ol {{ 
+                    margin-left: 25px; 
+                    margin-top: 10px;
+                }}
+                li {{ 
+                    margin: 10px 0; 
+                    line-height: 1.7;
+                }}
+                p {{ 
+                    margin: 12px 0; 
+                    line-height: 1.8;
+                }}
+                b {{ 
+                    color: #1565C0; 
+                    font-weight: 700;
+                }}
+                code {{
+                    background-color: #F5F5F5;
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    font-family: 'Consolas', 'Courier New', monospace;
+                    font-size: 13px;
+                }}
             </style>
         </head>
         <body>

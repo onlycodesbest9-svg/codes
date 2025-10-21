@@ -91,16 +91,27 @@ class PracticePanel(QWidget):
         
         self.question_label = QLabel("Select an exercise to begin")
         self.question_label.setWordWrap(True)
-        self.question_label.setStyleSheet("font-size: 14px; font-weight: 600; margin: 10px;")
+        self.question_label.setStyleSheet("""
+            font-size: 15px; 
+            font-weight: 600; 
+            margin: 15px; 
+            padding: 15px;
+            background-color: #F5F9FF;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+            color: #212121;
+            line-height: 1.6;
+        """)
         exercise_layout.addWidget(self.question_label)
         
         # Answer input
         answer_layout = QHBoxLayout()
         answer_label = QLabel("Your Answer:")
-        answer_label.setStyleSheet("font-weight: 600;")
+        answer_label.setStyleSheet("font-weight: 700; font-size: 14px; color: #212121;")
         self.answer_input = QLineEdit()
         self.answer_input.setPlaceholderText("Enter your answer here...")
-        self.answer_input.setMinimumHeight(40)
+        self.answer_input.setMinimumHeight(45)
+        self.answer_input.setStyleSheet("font-size: 14px; padding: 10px;")
         
         answer_layout.addWidget(answer_label)
         answer_layout.addWidget(self.answer_input)
@@ -125,6 +136,16 @@ class PracticePanel(QWidget):
         self.feedback_display = QTextEdit()
         self.feedback_display.setReadOnly(True)
         self.feedback_display.setMaximumHeight(150)
+        self.feedback_display.setStyleSheet("""
+            QTextEdit {
+                font-size: 14px;
+                line-height: 1.6;
+                padding: 15px;
+                background-color: #FAFAFA;
+                border: 2px solid #E0E0E0;
+                border-radius: 6px;
+            }
+        """)
         exercise_layout.addWidget(self.feedback_display)
         
         layout.addWidget(exercise_group)
