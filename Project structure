@@ -1,0 +1,8 @@
+/
+├── main.py                # App launcher
+├── ui_main.py             # GUI classes
+├── hash_table.py          # Hashing logic
+├── storage_manager.py     # Storage handling
+├── assets/
+│   ├── icons/             # ICO 
+│   └── style.qss          # Qt stylesheet for modern look
