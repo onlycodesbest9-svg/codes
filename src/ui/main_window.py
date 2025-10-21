@@ -33,8 +33,9 @@ class MainWindow(QMainWindow):
         self.settings = self.file_manager.load_settings()
         self.progress = self.file_manager.load_progress()
         
-        # User mode (student or instructor)
+        # User mode (student or instructor) and user ID
         self.user_mode = None
+        self.user_id = None  # student_id or instructor_pin
         
         # Setup UI
         self.setWindowTitle("RecursiveLearn - Master Recursive Sequences")

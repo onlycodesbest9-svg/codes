@@ -69,3 +69,41 @@ class Settings:
     instructor_pin: str = "1234"
     show_step_by_step: bool = True
     auto_save: bool = True
+
+
+@dataclass
+class Quiz:
+    """Quiz model."""
+    id: str
+    title: str
+    description: str
+    questions: List[Dict] = field(default_factory=list)  # {question, options, correct_answer}
+    time_limit: int = 0  # minutes, 0 = no limit
+    created_by: str = "instructor"
+    created_date: str = field(default_factory=lambda: datetime.now().isoformat())
+
+
+@dataclass
+class QuizAttempt:
+    """Student quiz attempt."""
+    quiz_id: str
+    student_id: str
+    answers: Dict[str, str] = field(default_factory=dict)
+    score: float = 0.0
+    completed: bool = False
+    start_time: str = field(default_factory=lambda: datetime.now().isoformat())
+    end_time: Optional[str] = None
+
+
+@dataclass
+class StudentRecord:
+    """Student record for instructor tracking."""
+    student_id: str
+    name: str = ""
+    email: str = ""
+    lessons_completed: List[int] = field(default_factory=list)
+    exercises_completed: List[str] = field(default_factory=list)
+    quiz_attempts: List[QuizAttempt] = field(default_factory=list)
+    total_score: int = 0
+    last_login: str = field(default_factory=lambda: datetime.now().isoformat())
+    registration_date: str = field(default_factory=lambda: datetime.now().isoformat())
